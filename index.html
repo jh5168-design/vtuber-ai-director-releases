@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A local-first AI live director and speech-tracked teleprompter for VTuber chatting streams.">
+  <meta name="theme-color" content="#080a0d">
+  <title>VTuber AI Director — You perform. The AI directs.</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a><div class="noise"></div>
+  <header class="site-header">
+    <nav class="nav shell" aria-label="Main navigation">
+      <a class="brand" href="index.html" aria-label="VTuber AI Director home"><span class="brand-mark" aria-hidden="true"></span><span>VTuber AI Director<small>Local streaming intelligence</small></span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-label="Open navigation"><span></span><span></span></button>
+      <div class="nav-links"><a aria-current="page" href="index.html">Overview</a><a href="onboarding.html">Onboarding</a><a href="docs.html">Docs</a><a href="download.html">Downloads</a><a href="https://github.com/jh5168-design/vtuber-ai-director-releases" target="_blank" rel="noreferrer">Releases ↗</a><a class="nav-cta" href="download.html">Get the app <span class="arrow">→</span></a></div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="hero-grid shell">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="live-dot"></span> Built for live creators</div>
+          <h1>Your stream.<span class="outline">Never quiet.</span></h1>
+          <p class="hero-lede">A local-first AI director that listens to your performance, tracks your script, reads the room, and prepares what comes next—without taking over your voice.</p>
+          <div class="hero-actions"><a class="button button-primary" href="download.html">Download desktop <span class="arrow">→</span></a><a class="button button-ghost" href="onboarding.html">Start the 8-minute setup</a></div>
+          <div class="trust-row"><span>Runs on your machine</span><span>OpenAI-compatible</span><span>macOS + Windows</span></div>
+        </div>
+        <div class="app-stage" aria-label="VTuber AI Director application preview">
+          <div class="stage-glow"></div>
+          <div class="window"><div class="window-bar"><i></i><i></i><i></i><span>PRE-STREAM / READY</span></div><img src="assets/app-overview.png" alt="VTuber AI Director pre-stream setup interface" width="2880" height="1834"></div>
+          <div class="float-card float-one"><span class="signal"></span><div><strong>Listening locally</strong><span>Chinese · Whisper</span></div></div>
+          <div class="float-card float-two"><span class="decision-icon">✦</span><div><strong>75 sec ready</strong><span>Director buffer healthy</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true"><div class="marquee-track"><span><b>●</b>Speech-aware teleprompter</span><span><b>●</b>Character memory</span><span><b>●</b>Bilibili Open Live</span><span><b>●</b>Live rehearsal</span><span><b>●</b>Local Whisper</span><span><b>●</b>Speech-aware teleprompter</span><span><b>●</b>Character memory</span><span><b>●</b>Bilibili Open Live</span><span><b>●</b>Live rehearsal</span><span><b>●</b>Local Whisper</span></div></div>
+
+    <section class="section shell reveal">
+      <div class="section-head"><div><div class="index-num">01 / THE DIRECTOR LOOP</div></div><div><h2>It follows the performance, not a timer.</h2><p>The director turns real speech and audience signals into an adaptive script buffer. You stay present on camera while the system quietly handles the next beat.</p></div></div>
+      <div class="loop-grid">
+        <article class="loop-step"><span class="num">01 · LISTEN</span><h3>Understand the moment</h3><p>Local speech recognition distinguishes reading, paraphrasing, improvising, questions, topic changes, singing, and silence.</p></article>
+        <article class="loop-step"><span class="num">02 · DECIDE</span><h3>Choose the next move</h3><p>Audience activity, character rules, memories, recent topics, and your session instructions shape the director’s next decision.</p></article>
+        <article class="loop-step"><span class="num">03 · PREPARE</span><h3>Keep dialogue ready</h3><p>Upcoming segments are buffered ahead of your reading speed. New signals update future lines without disturbing the words already on screen.</p></article>
+      </div>
+    </section>
+
+    <section class="section section-rule">
+      <div class="shell">
+        <div class="section-head reveal"><div><div class="index-num">02 / ONE WORKSPACE</div></div><div><h2>From persona to performance.</h2><p>Plan the character, rehearse the room, then go live with the same director and deliberately separated memory environments.</p></div></div>
+
+        <article class="showcase reveal">
+          <div class="showcase-visual"><img src="assets/app-character-studio.jpg" alt="Character Studio in VTuber AI Director" width="726" height="853" loading="lazy"></div>
+          <div class="showcase-copy"><span class="tag">Character Studio</span><h3>Give the director a point of view.</h3><p>Define identity, worldview, speaking rhythm, humor, hard boundaries, and example dialogue. Every generation stays scoped to the character you selected.</p><ul class="clean-list"><li>Isolated memory and viewer namespaces</li><li>Explicit behavioral boundaries</li><li>Reusable profiles for different channels</li></ul></div>
+        </article>
+
+        <article class="showcase reveal">
+          <div class="showcase-visual"><img src="assets/app-rehearsal.jpg" alt="Live Rehearsal setup in VTuber AI Director" width="726" height="853" loading="lazy"></div>
+          <div class="showcase-copy"><span class="tag">Live Rehearsal</span><h3>Pressure-test the show before the show.</h3><p>Rehearse with simulated audience activity and your real microphone. The production director is the same; rehearsal memories stay in their own sandbox.</p><ul class="clean-list"><li>None to high audience activity presets</li><li>Chinese, Japanese, and English recognition</li><li>Separate rehearsal memory environment</li></ul></div>
+        </article>
+
+        <article class="showcase reveal">
+          <div class="showcase-visual"><img src="assets/app-prestream.jpg" alt="Pre-Stream Setup in VTuber AI Director" width="726" height="853" loading="lazy"></div>
+          <div class="showcase-copy"><span class="tag">Pre-Stream Setup</span><h3>Brief the session in plain language.</h3><p>Describe the format, energy, restrictions, and interaction style. The app interprets your note into a director policy that you can review before you start.</p><ul class="clean-list"><li>Optional TXT and Markdown manuscripts</li><li>Bilibili Open Live identity-code connection</li><li>Mic and recognition test before going live</li></ul></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section shell reveal">
+      <div class="local-banner">
+        <div class="local-copy"><div class="eyebrow">Local by default</div><h2>Your show stays yours.</h2><p>The desktop app binds its backend to your computer. Local Whisper can process microphone audio on-device, while the model connection remains your choice: LM Studio, Ollama, or another OpenAI-compatible provider.</p><div class="hero-actions"><a class="button" href="docs.html#privacy">Read the architecture notes <span class="arrow">→</span></a></div></div>
+        <div class="privacy-stack"><div class="privacy-item"><i>⌘</i><div><strong>Loopback backend</strong><p>Private, authenticated app process on 127.0.0.1.</p></div></div><div class="privacy-item"><i>♫</i><div><strong>On-device speech</strong><p>Local Whisper is the recommended recognition path.</p></div></div><div class="privacy-item"><i>⚡</i><div><strong>Bring your model</strong><p>Use a local server or your preferred compatible API.</p></div></div></div>
+      </div>
+    </section>
+
+    <section class="section shell reveal"><div class="cta-panel"><div class="eyebrow" style="justify-content:center">Your next stream starts here</div><h2>Perform live. Stay one beat ahead.</h2><p>Download the desktop app, connect a model, and run your first rehearsal.</p><div class="hero-actions" style="justify-content:center"><a class="button button-primary" href="download.html">Choose your platform <span class="arrow">→</span></a><a class="button" href="docs.html">Explore the docs</a></div></div></section>
+  </main>
+
+  <footer class="site-footer"><div class="shell"><div class="footer-grid"><div class="footer-brand"><a class="brand" href="index.html"><span class="brand-mark"></span><span>VTuber AI Director<small>Local streaming intelligence</small></span></a><p>An experimental, local-first director for character-driven VTuber chatting streams.</p></div><div class="footer-links"><div><strong>Product</strong><a href="download.html">Downloads</a><a href="onboarding.html">Onboarding</a></div><div><strong>Resources</strong><a href="docs.html">Documentation</a><a href="https://github.com/jh5168-design/vtuber-ai-director-releases">Public releases</a></div></div></div><div class="footer-bottom"><span>© <span data-year></span> VTuber AI Director</span><span>Public binaries · Private source</span></div></div></footer>
+</body>
+</html>

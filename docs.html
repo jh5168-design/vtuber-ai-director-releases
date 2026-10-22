@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Documentation for VTuber AI Director."><meta name="theme-color" content="#080a0d">
+  <title>Documentation — VTuber AI Director</title><link rel="stylesheet" href="styles.css"><script src="site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#docs-main">Skip to documentation</a><div class="noise"></div>
+  <header class="site-header"><nav class="nav shell" aria-label="Main navigation"><a class="brand" href="index.html"><span class="brand-mark"></span><span>VTuber AI Director<small>Documentation</small></span></a><button class="menu-toggle" type="button" aria-expanded="false" aria-label="Open navigation"><span></span><span></span></button><div class="nav-links"><a href="index.html">Overview</a><a href="onboarding.html">Onboarding</a><a aria-current="page" href="docs.html">Docs</a><a href="download.html">Downloads</a><a href="https://github.com/jh5168-design/vtuber-ai-director-releases" target="_blank" rel="noreferrer">Releases ↗</a><a class="nav-cta" href="download.html">Get the app <span class="arrow">→</span></a></div></nav></header>
+
+  <main class="section shell docs-layout" id="docs-main">
+    <aside class="docs-sidebar" aria-label="Documentation navigation">
+      <label class="docs-search"><span class="skip-link">Search documentation</span><input id="docs-search" type="search" placeholder="Search this page…" autocomplete="off"><kbd>⌘K</kbd></label>
+      <nav>
+        <div class="docs-group"><strong>Introduction</strong><a class="active" href="#overview">Overview</a><a href="#requirements">Requirements</a><a href="#quick-start">Quick start</a></div>
+        <div class="docs-group"><strong>Core workflows</strong><a href="#character-studio">Character Studio</a><a href="#rehearsal">Live Rehearsal</a><a href="#production">Live Stream</a><a href="#memory">Memory Studio</a></div>
+        <div class="docs-group"><strong>Configuration</strong><a href="#model-service">Model service</a><a href="#speech">Speech recognition</a><a href="#bilibili">Bilibili Open Live</a></div>
+        <div class="docs-group"><strong>Reference</strong><a href="#architecture">Architecture</a><a href="#privacy">Privacy & data</a><a href="#troubleshooting">Troubleshooting</a><a href="#limitations">Known limitations</a></div>
+      </nav>
+      <div class="search-empty">No section matches your search.</div>
+    </aside>
+
+    <div class="docs-main">
+      <div class="docs-breadcrumbs">Docs / Getting started / Overview</div>
+      <h1>VTuber AI Director</h1>
+      <p class="docs-intro">A local-first live director and speech-tracked teleprompter for character-driven chatting streams. The core rule is simple: <strong>you perform; the AI directs.</strong></p>
+
+      <article>
+        <section class="docs-section" id="overview"><h2>Overview</h2><p>The app listens to the streamer, follows progress through prepared dialogue, classifies unscripted speech, selects valuable audience messages, and keeps a forward-looking script buffer ready. Current spoken text stays locked; new events change only future dialogue.</p><div class="callout"><span>✦</span><div><b>What this is not</b><p>It is not an autonomous avatar, voice clone, or broadcast platform. The streamer remains the performer and decides what is spoken.</p></div></div><h3>Primary capabilities</h3><ul><li>Speech-aware teleprompter with conservative fuzzy progress matching.</li><li>Character profiles with speaking style, humor, examples, and behavioral boundaries.</li><li>Strict per-character and per-environment memory namespaces.</li><li>Live rehearsal with simulated audience activity.</li><li>Bilibili Open Live integration through the official identity-code flow.</li><li>Local Whisper or supported browser speech recognition.</li></ul></section>
+
+        <section class="docs-section" id="requirements"><h2>Requirements</h2><p>Desktop installers bundle the interface and backend. Model inference and local speech recognition still have their own requirements.</p><table class="release-table"><thead><tr><th>Area</th><th>Minimum</th><th>Recommended</th></tr></thead><tbody><tr><td>Operating system</td><td>macOS or Windows</td><td>Current supported release</td></tr><tr><td>Model service</td><td>OpenAI-compatible endpoint</td><td>LM Studio or Ollama locally</td></tr><tr><td>Microphone</td><td>System-recognized input</td><td>Dedicated USB/XLR chain</td></tr><tr><td>Storage</td><td>App plus model cache</td><td>Several GB for Whisper weights</td></tr></tbody></table><p>Source development additionally requires Python 3.11 and Node.js 22.6 or newer.</p></section>
+
+        <section class="docs-section" id="quick-start"><h2>Quick start</h2><p>For the guided product flow, use the <a href="onboarding.html">interactive onboarding page</a>. For source development:</p><div class="code-block" id="source-setup"><button class="copy-button" type="button" data-copy="#source-setup">Copy</button><span class="code-accent"># from the repository root</span>
+cp .env.example .env
+make setup
+
+<span class="code-accent"># terminal 1</span>
+make backend
+
+<span class="code-accent"># terminal 2</span>
+make frontend</div><p>Open <code>http://localhost:5173</code>. The application creates a sample character on first start.</p></section>
+
+        <section class="docs-section" id="character-studio"><h2>Character Studio</h2><p>A character defines both generation behavior and data scope. Fill in the identity, background, worldbuilding, personality, speaking tone, typical phrases, forbidden behavior, and example dialogue.</p><h3>Write examples that can be performed</h3><p>Short, speakable example lines are more useful than abstract adjectives. Combine them with explicit boundaries: what the character would never claim, reveal, or joke about.</p><div class="callout"><span>◈</span><div><b>Namespace guarantee</b><p>Memories, viewer profiles, callbacks, and sessions are always queried with the selected character ID. Switching characters switches the complete context boundary.</p></div></div></section>
+
+        <section class="docs-section" id="rehearsal"><h2>Live Rehearsal</h2><p>Rehearsal uses the same director pipeline as production without connecting to a real room. Choose audience activity from None, Low, Medium, High, or a custom 5–600 second interval.</p><h3>What to observe</h3><ul><li>The current sentence highlights and advances only after recognized speech.</li><li>Partial results are visible but do not become trusted history.</li><li>Improvisation or a topic change invalidates future generations, not current text.</li><li>Prepared dialogue remains available while replacement content is generated.</li></ul></section>
+
+        <section class="docs-section" id="production"><h2>Live Stream</h2><p>Open <strong>Live Stream</strong>, select a character, choose speech input, and write session instructions. Instructions may describe format, atmosphere, restrictions, interaction style, and required capabilities in ordinary language.</p><p>An optional TXT or Markdown manuscript supplies reference content and a persistent resume position. Use <strong>Interpret instructions</strong> to review the resulting director policy before starting Full Auto.</p></section>
+
+        <section class="docs-section" id="memory"><h2>Memory Studio</h2><p>Memory Studio separates live-stream and rehearsal data. Each entry records source type, whether it was actually spoken, importance, confidence, and callback usage.</p><p>Rehearsal memories never move into production automatically. A selected rehearsal memory can be transferred only after explicit confirmation; its viewer and session association is cleared during transfer.</p></section>
+
+        <section class="docs-section" id="model-service"><h2>Model service</h2><p>Director generation, instruction interpretation, opening topics, and rehearsal viewers share one OpenAI-compatible client. The default local endpoint is <code>http://localhost:1234/v1</code>.</p><p>The client negotiates structured output in this order: JSON Schema, JSON object, then prompt-constrained output. It remembers the compatible mode for each service URL and model.</p><h3>Settings</h3><ul><li><strong>Service URL:</strong> the provider base URL ending in <code>/v1</code> when required.</li><li><strong>Model:</strong> the exact identifier exposed by the provider.</li><li><strong>API key:</strong> optional for local services; required by most cloud providers.</li><li><strong>Timeout:</strong> increase this for slower local models. A 27B model may need tens of seconds.</li></ul></section>
+
+        <section class="docs-section" id="speech"><h2>Speech recognition</h2><p>Local Whisper is the default. Browser audio is converted to 16 kHz PCM and sent to the local backend over an authenticated WebSocket. Audio is held in memory and split around natural pauses before transcription.</p><p>The first use downloads the selected Whisper model into the app’s local model directory. Use the five-second input test to check capture, input level, backend reception, transcription, and playback.</p></section>
+
+        <section class="docs-section" id="bilibili"><h2>Bilibili Open Live</h2><p>The integration uses the official Open Live API and the WebSocket transport returned by <code>/v2/app/start</code>. It does not use cookies, room URLs, or public-room scraping.</p><p>The streamer enters an identity code for each room. Developer credentials—App ID, Access Key ID, and Access Key Secret—are configured once in Settings. The backend stores them locally and never returns secret values to the renderer.</p><h3>Supported events</h3><p>Danmaku, Super Chat, paid gifts, and guard events feed the existing audience selector. Free-gift bursts, likes, room entries, and live start/end events are not mapped.</p></section>
+
+        <section class="docs-section" id="architecture"><h2>Architecture</h2><p>The Electron shell launches a private FastAPI process on an automatically selected loopback port, waits for an authenticated health check, and serves the production React bundle from that process.</p><div class="code-block">Electron main process
+  └─ private loopback token
+     ├─ React renderer
+     ├─ FastAPI HTTP + WebSocket
+     ├─ SQLite persistence
+     └─ local model / external compatible API</div><p>Renderer sandboxing and context isolation are enabled. Node integration, arbitrary navigation, and popups are disabled. Only microphone media requests from the app are allowed, subject to OS permission.</p></section>
+
+        <section class="docs-section" id="privacy"><h2>Privacy & data</h2><p>The backend binds only to <code>127.0.0.1</code>. Each desktop launch creates a random token held in an HttpOnly, SameSite cookie inside an in-memory Electron session. Every HTTP route and WebSocket connection is authenticated.</p><p>The local database lives in the Electron user-data directory. Whisper models are stored in its model cache. Local recognition does not send microphone audio to a browser vendor or public network.</p><div class="callout"><span>⚠</span><div><b>Current credential limitation</b><p>Saved model and Bilibili secrets use the local SQLite settings table. Migration to the operating system credential store is not implemented. Protect the user-data directory and backups.</p></div></div></section>
+
+        <section class="docs-section" id="troubleshooting"><h2>Troubleshooting</h2><h3>The model connection fails</h3><p>Confirm the service is running, the base URL is correct, and the configured model name matches the provider. Local services usually do not need an API key. Increase the timeout for slow local inference.</p><h3>No microphone is available</h3><p>Allow microphone access in both the operating system and app. Close other software that may hold the device, refresh microphones, and run the input test again.</p><h3>Local Whisper will not load</h3><p>Confirm that the machine can reach Hugging Face on first download, or set a mirror through <code>HF_ENDPOINT</code>. A previously downloaded local model directory can also be selected.</p><h3>Bilibili does not connect</h3><p>Confirm developer credentials in Settings, then verify the current identity code. Unpublished Open Live projects can connect only to the developer’s own room.</p></section>
+
+        <section class="docs-section" id="limitations"><h2>Known limitations</h2><ul><li>Desktop preview builds are unsigned and not notarized.</li><li>Automatic updates and crash recovery are not implemented.</li><li>Physical microphone behavior requires acceptance testing on each target machine.</li><li>Windows runtime behavior must be verified on Windows; a macOS build cannot certify it.</li><li>Browser speech recognition is not guaranteed inside Electron; use Local Whisper.</li><li>Real Bilibili room reception requires an approved project and a manual live-room test.</li></ul><p>For current public binaries and release notes, visit the <a href="https://github.com/jh5168-design/vtuber-ai-director-releases">release repository</a>.</p></section>
+      </article>
+    </div>
+
+    <aside class="toc" aria-label="On this page"><strong>On this page</strong><a href="#overview">Overview</a><a href="#requirements">Requirements</a><a href="#quick-start">Quick start</a><a href="#character-studio">Character Studio</a><a href="#rehearsal">Live Rehearsal</a><a href="#production">Live Stream</a><a href="#memory">Memory Studio</a><a href="#model-service">Model service</a><a href="#speech">Speech recognition</a><a href="#bilibili">Bilibili</a><a href="#architecture">Architecture</a><a href="#privacy">Privacy & data</a><a href="#troubleshooting">Troubleshooting</a><a href="#limitations">Limitations</a></aside>
+  </main>
+  <footer class="site-footer"><div class="shell"><div class="footer-grid"><div class="footer-brand"><a class="brand" href="index.html"><span class="brand-mark"></span><span>VTuber AI Director<small>Local streaming intelligence</small></span></a><p>An experimental, local-first director for character-driven VTuber chatting streams.</p></div><div class="footer-links"><div><strong>Product</strong><a href="download.html">Downloads</a><a href="onboarding.html">Onboarding</a></div><div><strong>Resources</strong><a href="docs.html">Documentation</a><a href="https://github.com/jh5168-design/vtuber-ai-director-releases">Public releases</a></div></div></div><div class="footer-bottom"><span>© <span data-year></span> VTuber AI Director</span><span>Public binaries · Private source</span></div></div></footer>
+</body></html>

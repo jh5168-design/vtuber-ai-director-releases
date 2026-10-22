@@ -1,0 +1,2 @@
+0a4e35d1c1cebfe9218ccc23ef09b955d7fad73b3494c693d67b0d5c4b1d4af1  VTuber-AI-Director-macOS-arm64.dmg
+d405a45f3519f30171f0083939feecbb24be5d6c260268c32a822f312f883ba3  VTuber-AI-Director-macOS-arm64.zip

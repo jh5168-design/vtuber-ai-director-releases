@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Set up VTuber AI Director in four guided steps."><meta name="theme-color" content="#080a0d">
+  <title>Onboarding — VTuber AI Director</title><link rel="stylesheet" href="styles.css"><script src="site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a><div class="noise"></div>
+  <header class="site-header"><nav class="nav shell" aria-label="Main navigation"><a class="brand" href="index.html"><span class="brand-mark"></span><span>VTuber AI Director<small>Local streaming intelligence</small></span></a><button class="menu-toggle" type="button" aria-expanded="false" aria-label="Open navigation"><span></span><span></span></button><div class="nav-links"><a href="index.html">Overview</a><a aria-current="page" href="onboarding.html">Onboarding</a><a href="docs.html">Docs</a><a href="download.html">Downloads</a><a href="https://github.com/jh5168-design/vtuber-ai-director-releases" target="_blank" rel="noreferrer">Releases ↗</a><a class="nav-cta" href="download.html">Get the app <span class="arrow">→</span></a></div></nav></header>
+  <main id="main">
+    <header class="page-hero"><div class="shell"><div class="eyebrow">First run guide</div><h1>Ready in four<br>clear moves.</h1><p class="lede">Set up the model, voice input, character, and rehearsal loop. Nothing is sent anywhere until you choose a model connection.</p><div class="page-meta"><span>4 steps</span><span>About 8 minutes</span><span>No account required</span></div></div></header>
+
+    <section class="section shell onboarding-shell">
+      <aside class="progress-card" aria-label="Onboarding progress"><h2>Your setup</h2><div class="progress-list"><button class="progress-item active" type="button"><b>01</b><span>Model connection</span></button><button class="progress-item" type="button"><b>02</b><span>Speech input</span></button><button class="progress-item" type="button"><b>03</b><span>Character profile</span></button><button class="progress-item" type="button"><b>04</b><span>First rehearsal</span></button></div><div class="progress-line"><span></span></div><p class="progress-copy">1 of 4 · about 8 min left</p></aside>
+
+      <div class="onboarding-content">
+        <article class="onboarding-step active" id="step-1"><div class="step-top">Step 01 · Intelligence</div><h2>Connect the model that does the directing.</h2><p class="step-lede">VTuber AI Director speaks to any OpenAI-compatible endpoint. A local service is the most private starting point; a cloud provider works when you need more capacity.</p>
+          <div class="setup-card"><h3>Recommended · LM Studio</h3><p>Load an instruction-capable model, open the Developer tab, and start the local server on port 1234.</p><div class="code-block" id="lmstudio-config"><button class="copy-button" type="button" data-copy="#lmstudio-config">Copy</button><span class="code-accent">Service URL</span>  http://localhost:1234/v1
+<span class="code-accent">API key</span>     leave blank
+<span class="code-accent">Model</span>       select the loaded model</div></div>
+          <div class="option-grid"><div class="option"><strong>Ollama</strong><span>Use http://localhost:11434/v1 and the model name you pulled.</span></div><div class="option"><strong>Cloud provider</strong><span>Enter the compatible base URL, model name, and provider API key.</span></div></div>
+          <div class="callout"><span>✦</span><div><b>Test before continuing</b><p>Open Settings → AI model service, choose a preset, then use Test connection. The app reports the model response and structured-output mode.</p></div></div>
+          <div class="step-nav"><a class="button" href="download.html">← Downloads</a><button class="button button-primary" type="button" data-next-step="1">Speech input <span class="arrow">→</span></button></div>
+        </article>
+
+        <article class="onboarding-step" id="step-2"><div class="step-top">Step 02 · Voice</div><h2>Let the director follow your performance.</h2><p class="step-lede">Use Local Whisper for speech tracking that stays on your computer. The first run downloads the recognition model; future runs reuse it.</p>
+          <div class="setup-card"><h3>Configure speech input</h3><p>In Live Stream or Live Rehearsal, work through these checks in order.</p><div class="checklist"><div class="checkline"><i>1</i><span>Choose <strong>Local Whisper (recommended, offline)</strong> as the recognition engine.</span></div><div class="checkline"><i>2</i><span>Select Chinese, Japanese, English, or automatic language detection.</span></div><div class="checkline"><i>3</i><span>Click <strong>Allow access and refresh microphones</strong>, then choose the correct input.</span></div><div class="checkline"><i>4</i><span>Run the five-second input test. Confirm the level moves and the spoken sample is transcribed.</span></div></div></div>
+          <div class="callout"><span>♫</span><div><b>Browser recognition is optional</b><p>It depends on browser and OS support and may send audio to the browser vendor. Local Whisper is the predictable desktop path.</p></div></div>
+          <div class="step-nav"><button class="button" type="button" data-prev-step="0">← Model</button><button class="button button-primary" type="button" data-next-step="2">Character profile <span class="arrow">→</span></button></div>
+        </article>
+
+        <article class="onboarding-step" id="step-3"><div class="step-top">Step 03 · Persona</div><h2>Teach the director who is on camera.</h2><p class="step-lede">A character profile is more than a prompt. It is the identity boundary for memories, viewer relationships, language, humor, and behavior.</p>
+          <div class="setup-card"><h3>A useful first profile</h3><p>Start with a small, concrete definition. You can refine it after hearing a rehearsal.</p><div class="code-block" id="character-example"><button class="copy-button" type="button" data-copy="#character-example">Copy</button><span class="code-accent">Name</span>          Astra Vale
+<span class="code-accent">Occupation</span>    Night-shift archivist
+<span class="code-accent">Traits</span>        Observant, warm, quietly mischievous
+<span class="code-accent">Speaking tone</span> Conversational; short vivid metaphors
+<span class="code-accent">Would say</span>      "Let’s open that file."
+<span class="code-accent">Never say</span>      Invented personal facts about viewers</div></div>
+          <div class="option-grid"><div class="option"><strong>Write positive direction</strong><span>Show the desired rhythm and vocabulary with example lines.</span></div><div class="option"><strong>Set hard boundaries</strong><span>List topics, claims, and behaviors the character must avoid.</span></div></div>
+          <div class="callout"><span>◈</span><div><b>Memory is character-scoped</b><p>A stream using Astra never reads another character’s memories or viewer profiles. Rehearsal and production are also separate environments.</p></div></div>
+          <div class="step-nav"><button class="button" type="button" data-prev-step="1">← Speech input</button><button class="button button-primary" type="button" data-next-step="3">First rehearsal <span class="arrow">→</span></button></div>
+        </article>
+
+        <article class="onboarding-step" id="step-4"><div class="step-top">Step 04 · Rehearse</div><h2>Run one safe, observable rehearsal.</h2><p class="step-lede">Start with low simulated audience activity. Read naturally, deliberately improvise once, and watch how the director updates only the future buffer.</p>
+          <div class="setup-card"><h3>Five-minute acceptance run</h3><div class="checklist"><div class="checkline"><i>✓</i><span>Select your new character and leave the optional rehearsal instructions blank.</span></div><div class="checkline"><i>✓</i><span>Set simulated audience activity to <strong>Low</strong> and start the rehearsal.</span></div><div class="checkline"><i>✓</i><span>Read several sentences. Confirm the teleprompter highlight advances with speech, not elapsed time.</span></div><div class="checkline"><i>✓</i><span>Say a new thought that is not in the script. Confirm the director marks improvisation and adapts upcoming dialogue.</span></div><div class="checkline"><i>✓</i><span>Stop the rehearsal. Open Memory Studio and confirm the entry remains under the Rehearsal environment.</span></div></div></div>
+          <div class="callout"><span>●</span><div><b>You are ready for production when…</b><p>Audio is stable, model generation finishes before your ready buffer empties, and the character sounds right when you speak the lines aloud.</p></div></div>
+          <div class="step-nav"><button class="button" type="button" data-prev-step="2">← Character</button><a class="button button-primary" href="docs.html">Open the documentation <span class="arrow">→</span></a></div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="shell"><div class="footer-grid"><div class="footer-brand"><a class="brand" href="index.html"><span class="brand-mark"></span><span>VTuber AI Director<small>Local streaming intelligence</small></span></a><p>An experimental, local-first director for character-driven VTuber chatting streams.</p></div><div class="footer-links"><div><strong>Product</strong><a href="download.html">Downloads</a><a href="onboarding.html">Onboarding</a></div><div><strong>Resources</strong><a href="docs.html">Documentation</a><a href="https://github.com/jh5168-design/vtuber-ai-director-releases">Public releases</a></div></div></div><div class="footer-bottom"><span>© <span data-year></span> VTuber AI Director</span><span>Public binaries · Private source</span></div></div></footer>
+</body></html>
