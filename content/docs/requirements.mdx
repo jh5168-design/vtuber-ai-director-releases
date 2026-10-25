@@ -1,0 +1,29 @@
+---
+title: Requirements
+description: What the desktop app needs from your Mac, your model service, and your microphone.
+---
+
+| Area             | Minimum                                                  | Recommended                                      |
+| ---------------- | -------------------------------------------------------- | ------------------------------------------------ |
+| Operating system | macOS on Apple silicon                                   | The current supported macOS release              |
+| Model service    | Any OpenAI-compatible endpoint                           | LM Studio or Ollama on the same computer         |
+| Microphone       | Any input your system recognizes                         | A dedicated USB or XLR chain                     |
+| Storage          | About 1 GB: the app plus the default Whisper model (`small`) | Several GB free to try larger Whisper models |
+
+<Callout type="warn" title="Windows is not available yet">
+  The Windows x64 installer must be built on a Windows runner and has not been published. Check the [download page](/download) for its status.
+</Callout>
+
+## Model service
+
+The director needs a language model that speaks the OpenAI-compatible API. A local server keeps everything on your computer but shares its memory with Whisper and your streaming software; a cloud provider needs no local memory but receives your stream context. Slower local models still work with a longer request timeout. See [Model service](/docs/model-service).
+
+## Speech recognition
+
+Local Whisper downloads its model once, from 76 MB for `tiny` to 3.1 GB for `large-v3`. The default, `small`, is 484 MB. See [Speech recognition](/docs/speech-recognition).
+
+## Running from source
+
+Running the app from source also requires Python 3.11 and Node.js 22.6 or newer. See [Quick start](/docs/quick-start#run-from-source).
+
+Next: [install the app](/docs/installation).

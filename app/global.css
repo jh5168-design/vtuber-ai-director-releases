@@ -1,0 +1,349 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+
+/*
+ * Studio theme. Dark is the default (streamers set up at night, beside OBS);
+ * light exists for reading the docs in daylight. Both share one hue family:
+ * cool ink neutrals plus the mint "on air" signal.
+ */
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: var(--font-archivo), 'Arial Narrow', ui-sans-serif, sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+
+  --color-fd-background: #f8f9fb;
+  --color-fd-foreground: #0b0e12;
+  --color-fd-muted: #eef1f4;
+  --color-fd-muted-foreground: #576070;
+  --color-fd-popover: #ffffff;
+  --color-fd-popover-foreground: #0b0e12;
+  --color-fd-card: #ffffff;
+  --color-fd-card-foreground: #0b0e12;
+  --color-fd-border: hsla(216, 25%, 18%, 0.13);
+  --color-fd-primary: #0a7a56;
+  --color-fd-primary-foreground: #ffffff;
+  --color-fd-secondary: #edf0f3;
+  --color-fd-secondary-foreground: #0b0e12;
+  --color-fd-accent: hsla(216, 25%, 40%, 0.09);
+  --color-fd-accent-foreground: #0b0e12;
+  --color-fd-ring: #0a7a56;
+  --color-fd-overlay: hsla(216, 30%, 6%, 0.35);
+
+  /* Filled call-to-action: mint with ink text in both themes. */
+  --color-brand: #46d6a6;
+  --color-brand-hover: #33c493;
+  --color-brand-ink: #04110c;
+  /* Secondary signal for director decisions and pending states. */
+  --color-signal: #5f45d6;
+  --color-caution: #a35d00;
+}
+
+.dark {
+  --color-fd-background: #080a0d;
+  --color-fd-foreground: #eef0f3;
+  --color-fd-muted: #11151b;
+  --color-fd-muted-foreground: #9aa1ab;
+  --color-fd-popover: #0f1217;
+  --color-fd-popover-foreground: #eef0f3;
+  --color-fd-card: #0c0f13;
+  --color-fd-card-foreground: #eef0f3;
+  --color-fd-border: hsla(216, 30%, 88%, 0.11);
+  --color-fd-primary: #88f1c7;
+  --color-fd-primary-foreground: #04110c;
+  --color-fd-secondary: #141920;
+  --color-fd-secondary-foreground: #eef0f3;
+  --color-fd-accent: hsla(216, 25%, 62%, 0.13);
+  --color-fd-accent-foreground: #f4f6f8;
+  --color-fd-ring: #88f1c7;
+  --color-fd-overlay: hsla(216, 40%, 2%, 0.6);
+
+  --color-brand: #88f1c7;
+  --color-brand-hover: #aaf6d9;
+  --color-signal: #b4a0ff;
+  --color-caution: #ffca6b;
+}
+
+:root {
+  --stage-shadow: 0 28px 64px -28px hsla(216, 45%, 14%, 0.3);
+}
+
+.dark {
+  --stage-shadow: 0 34px 90px -26px rgba(0, 0, 0, 0.78);
+}
+
+.dark #nd-sidebar {
+  --color-fd-muted: #141920;
+  --color-fd-secondary: #171c24;
+  --color-fd-muted-foreground: #a3aab4;
+}
+
+/* Marketing pages align to the header's measure. */
+#nd-home-layout {
+  --fd-layout-width: 1240px;
+}
+
+/* ---------- Browser surfaces ---------- */
+@layer base {
+  :root {
+    accent-color: var(--color-fd-primary);
+    caret-color: var(--color-fd-primary);
+    scrollbar-color: color-mix(in oklab, var(--color-fd-foreground) 20%, transparent) transparent;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-fd-primary) 30%, transparent);
+  }
+
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-fd-ring);
+    outline-offset: 2px;
+  }
+
+  a {
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1px;
+  }
+
+  table,
+  time,
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* ---------- Type roles ---------- */
+@utility font-display {
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' 78;
+}
+
+@utility display-xl {
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' 76;
+  font-size: clamp(3.25rem, 1.9rem + 4.4vw, 6rem);
+  font-weight: 760;
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+  word-spacing: 0.05em;
+  text-wrap: balance;
+}
+
+@utility display-lg {
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' 76;
+  font-size: clamp(2.75rem, 1.85rem + 3vw, 4.75rem);
+  font-weight: 740;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  word-spacing: 0.05em;
+  text-wrap: balance;
+}
+
+@utility display-md {
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' 78;
+  font-size: clamp(2.125rem, 1.6rem + 1.8vw, 3.25rem);
+  font-weight: 720;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  word-spacing: 0.05em;
+  text-wrap: balance;
+}
+
+@utility display-sm {
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' 80;
+  font-size: clamp(1.625rem, 1.35rem + 0.9vw, 2.125rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  word-spacing: 0.05em;
+  text-wrap: balance;
+}
+
+@utility lede {
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
+  line-height: 1.65;
+  color: var(--color-fd-muted-foreground);
+  text-wrap: pretty;
+}
+
+/* ---------- Actions ---------- */
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.625rem 1.125rem;
+  border-radius: 0.625rem;
+  border: 1px solid var(--color-fd-border);
+  background: var(--color-fd-secondary);
+  color: var(--color-fd-secondary-foreground);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+
+  &:hover {
+    background: color-mix(in oklab, var(--color-fd-secondary) 70%, var(--color-fd-foreground) 8%);
+    border-color: color-mix(in oklab, var(--color-fd-border) 50%, var(--color-fd-foreground) 22%);
+  }
+
+  & svg {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
+
+  &[aria-disabled='true'] {
+    pointer-events: none;
+    color: var(--color-fd-muted-foreground);
+    background: transparent;
+    border-style: dashed;
+  }
+}
+
+@utility btn-primary {
+  border-color: transparent;
+  background: var(--color-brand);
+  color: var(--color-brand-ink);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-brand-ink) 10%, transparent);
+
+  &:hover {
+    background: var(--color-brand-hover);
+    border-color: transparent;
+  }
+}
+
+@utility btn-quiet {
+  background: transparent;
+  border-color: transparent;
+  padding-inline: 0.75rem;
+
+  &:hover {
+    background: var(--color-fd-accent);
+    border-color: transparent;
+  }
+}
+
+@utility shadow-stage {
+  box-shadow: var(--stage-shadow);
+}
+
+/* The one moving element on the landing page: an input-level meter. */
+@keyframes signal-level {
+  from {
+    transform: scaleY(0.3);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.signal-bar {
+  animation: signal-level 0.9s cubic-bezier(0.33, 0, 0.2, 1) infinite alternate;
+}
+
+/* Capability crawl under the hero. */
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker {
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+}
+
+.ticker-track {
+  animation: ticker 48s linear infinite;
+}
+
+.ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+/* Hero stage: the app window tilts in perspective, status cards drift above it. */
+@keyframes drift {
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .stage-window {
+    transform: rotateY(-6deg) rotateX(2.5deg);
+  }
+}
+
+.stage-card {
+  animation: drift 5s ease-in-out infinite;
+}
+
+.stage-card-alt {
+  animation: drift 6s ease-in-out infinite reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signal-bar,
+  .ticker-track,
+  .stage-card,
+  .stage-card-alt {
+    animation: none;
+  }
+}
+
+@utility shell {
+  width: 100%;
+  max-width: var(--fd-layout-width);
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+/* ---------- Docs reading column ---------- */
+/* About 70 characters of body text per line, plus the page's own padding. */
+#nd-page {
+  max-width: calc(70ch + 4rem);
+}
+
+.prose {
+  text-wrap: pretty;
+
+  :where(h2):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+    font-family: var(--font-display);
+    font-variation-settings: 'wdth' 80;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    margin-top: 2.6em;
+    margin-bottom: 0.7em;
+    text-wrap: balance;
+  }
+
+  :where(h3):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+    font-size: 1.125rem;
+    font-weight: 620;
+    line-height: 1.4;
+    letter-spacing: -0.005em;
+    margin-top: 2.2em;
+    margin-bottom: 0.5em;
+    text-wrap: balance;
+  }
+
+  :where(td):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+    vertical-align: top;
+  }
+}

@@ -1,0 +1,118 @@
+---
+title: Speech recognition
+description: Set up Local Whisper so the director can follow your voice. It runs on your computer, and the model downloads only once.
+---
+
+The director follows your voice through **Local Whisper (recommended, offline)**, which runs faster-whisper on your own computer. Microphone audio is converted to 16 kHz, sent only to the local backend over an authenticated connection, kept in memory, and cut at natural pauses before transcription.
+
+Setting it up takes four steps: choose a model, download it once, set up your microphone, and test.
+
+## 1. Choose a recognition model
+
+Open **Settings → Local speech recognition**. In **Recognition model**, type a model name or pick one from the list, then select **Save**. The default is **small**.
+
+| Model            | Download | Use it when                                         |
+| ---------------- | -------- | --------------------------------------------------- |
+| `tiny`           | 76 MB    | You only want to check that the setup works.        |
+| `base`           | 145 MB   | Your computer is older or busy with other software. |
+| `small` (default) | 484 MB   | You stream in Chinese. It suits most chatting streams. |
+| `medium`         | 1.5 GB   | You want better accuracy and your computer keeps up. |
+| `large-v3-turbo` | 1.6 GB   | You want a faster, trimmed version of `large-v3`.   |
+| `large-v3`       | 3.1 GB   | You want the highest accuracy and have memory to spare. |
+
+Larger models are more accurate but slower and use more memory. If the app warns that recognition is falling behind, switch to a smaller model.
+
+## 2. Download the model
+
+The first time the model is needed, the app downloads it from Hugging Face into:
+
+```txt
+~/Library/Application Support/vtuber-ai-director-desktop/models
+```
+
+Later sessions reuse the download, even offline. To download ahead of time instead of at the start of a rehearsal, select **Preload recognition model**, either in Settings or in the **Speech input** panel. The status line shows progress:
+
+| Status                                                         | Meaning                              |
+| -------------------------------------------------------------- | ------------------------------------ |
+| Recognition model (small) is not loaded…                       | Nothing downloaded or loaded yet.    |
+| Loading recognition model (small). First use requires a download… | Downloading or loading. This can take several minutes. |
+| Recognition model (small) ready · auto · int8                  | Ready to transcribe.                 |
+
+### If Hugging Face is slow or blocked
+
+<Tabs items={['Use a mirror', 'Download the files yourself']}>
+<Tab value="Use a mirror">
+
+The desktop app passes the `HF_ENDPOINT` setting from the environment it was opened with. Quit the app with **⌘Q**, then open it with a mirror:
+
+```bash title="Terminal"
+open --env HF_ENDPOINT=https://hf-mirror.com -a "VTuber AI Director"
+```
+
+Select **Preload recognition model** and wait for **ready**. The mirror is only needed for the download; after that, open the app from **Applications** as usual.
+
+</Tab>
+<Tab value="Download the files yourself">
+
+1. Create a folder for the model, for example `Whisper/faster-whisper-small` in your home folder.
+2. Open the model's repository on [hf-mirror.com](https://hf-mirror.com/Systran/faster-whisper-small/tree/main) or [huggingface.co](https://huggingface.co/Systran/faster-whisper-small/tree/main) and download every file except `README.md` and `.gitattributes` into that folder. For `small`, that is `config.json`, `model.bin`, `tokenizer.json`, and `vocabulary.txt`.
+3. In Finder, select the folder and press **⌥⌘C** to copy its full path.
+4. Paste the path into **Recognition model**, for example `/Users/you/Whisper/faster-whisper-small`, and select **Save**. A path starting with `~` does not work.
+5. Select **Preload recognition model**. It loads from the folder without downloading.
+
+| Model            | Repository                                     |
+| ---------------- | ---------------------------------------------- |
+| `tiny`           | `Systran/faster-whisper-tiny`                  |
+| `base`           | `Systran/faster-whisper-base`                  |
+| `small`          | `Systran/faster-whisper-small`                 |
+| `medium`         | `Systran/faster-whisper-medium`                |
+| `large-v3-turbo` | `mobiuslabsgmbh/faster-whisper-large-v3-turbo` |
+| `large-v3`       | `Systran/faster-whisper-large-v3`              |
+
+</Tab>
+</Tabs>
+
+## 3. Set up your microphone
+
+Open **Live Rehearsal** or **Live Stream** and fill in the **Speech input** panel:
+
+1. **Recognition engine:** **Local Whisper (recommended, offline)**.
+2. **Recognition language:** **Chinese**, **Japanese**, **English**, or **Auto-detect (Chinese, Japanese and English)**. Pick your streaming language when you use only one; choosing Chinese also steers the transcript toward simplified characters.
+3. **Microphone:** select **Allow access and refresh microphones**, allow access when macOS asks, then choose your input.
+
+## 4. Run the audio input test
+
+Under **Audio input test**, select **Start test (record 5 seconds)** and say a sentence naturally. The test shows the input device, the peak and speech levels, how much audio reached the backend, the transcript, and a **Play recording** button so you can hear what the app heard.
+
+| The test says                                     | What to do                                                       |
+| ------------------------------------------------- | ---------------------------------------------------------------- |
+| Audio capture is working: clear speech detected.  | You are ready.                                                   |
+| Speech detected, but the volume is low.           | Move closer, or raise the input volume in your system settings.  |
+| The input is too loud and distorted.              | Move farther away, or lower the input gain.                      |
+| No audio captured.                                | Check the mute switch, the selected device, and microphone permission. |
+| Only background sound detected.                   | Say a sentence while it records.                                 |
+| The recording was too short.                      | Run the test again.                                              |
+| No transcript returned.                           | Speak more clearly and move closer to the microphone.            |
+
+Run the test again whenever you change microphones, cables, or audio interfaces.
+
+## Advanced settings
+
+faster-whisper picks its device automatically (`auto`) and runs at `int8` precision. Most setups never need to change this. When they do, pass `WHISPER_DEVICE` or `WHISPER_COMPUTE_TYPE` the same way as the mirror, with `open --env`.
+
+When you run the app from source, these values come from the repository's `.env` file instead:
+
+```bash title=".env"
+WHISPER_MODEL=small
+WHISPER_DEVICE=auto
+WHISPER_COMPUTE_TYPE=int8
+HF_ENDPOINT=https://hf-mirror.com
+```
+
+A model saved in Settings takes priority over `WHISPER_MODEL`.
+
+## Browser speech recognition
+
+**Browser speech recognition (online)** is optional. It uses the browser vendor's online service, so audio may leave your computer, and it is not guaranteed to work inside the desktop app. The audio input test only checks capture for this engine. Use Local Whisper for a predictable setup.
+
+Next: [create a character](/docs/character-studio).

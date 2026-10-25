@@ -1,0 +1,32 @@
+---
+title: Live Rehearsal
+description: Practice with simulated viewers and your real microphone. Rehearsal runs the same director as a live stream without connecting to a real room.
+---
+
+Rehearsal uses the production director pipeline end to end. The only differences are the audience, which is simulated, and the memory environment, which is kept separate from your live streams.
+
+## Set up a rehearsal
+
+1. Choose a **Character**.
+2. Write **Rehearsal instructions**, or leave them blank for character-driven free talk. No topic is required.
+3. Choose your **Microphone** and **Recognition language**: Chinese, Japanese, English, or automatic detection.
+4. Set **Simulated audience activity**, then select **Start rehearsal**.
+
+| Simulated audience activity | Message batches arrive                                 |
+| --------------------------- | ------------------------------------------------------ |
+| No messages                 | Never. Useful for checking speech tracking on its own. |
+| Low activity                | About every 60 seconds                                 |
+| Medium activity             | About every 25 seconds                                 |
+| High activity               | About every 8 seconds                                  |
+| Custom                      | At an interval you set, from 5 to 600 seconds          |
+
+## What to watch for
+
+- The current sentence is highlighted and advances only after your speech is recognized, never on a timer.
+- Partial recognition results appear on screen but are not trusted as history.
+- When you improvise or change the topic, the director discards future lines it had prepared. The line on screen stays put.
+- Prepared dialogue stays available while replacement lines are generated.
+
+<Callout title="Rehearsal stays in its sandbox">
+  Rehearsal never connects to Bilibili or writes to live-stream memory. To keep a rehearsal memory, [transfer it explicitly](/docs/memory-studio#move-a-rehearsal-memory-to-live).
+</Callout>

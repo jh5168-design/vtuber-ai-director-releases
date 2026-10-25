@@ -1,0 +1,23 @@
+---
+title: Known limitations
+description: What the current preview does not do yet. Check the release notes before you rely on it for a live show.
+---
+
+## Distribution
+
+- Desktop preview builds are unsigned and not notarized.
+- Automatic updates are not implemented. Install new releases manually.
+- The Windows installer is not published yet. A macOS build cannot certify Windows behavior; that needs testing on Windows.
+
+## Runtime
+
+- Crash recovery is not implemented.
+- Physical microphone behavior needs acceptance testing on each machine you stream from.
+- Browser speech recognition is not guaranteed inside the desktop app. Use Local Whisper.
+- Receiving chat from a real Bilibili room requires an approved Open Live project and a manual test in a live room.
+
+## Data
+
+- Saved secrets live in the local SQLite settings table, not the operating system's credential store. See [Privacy & data](/docs/privacy).
+
+For current builds and release notes, see the [release repository](https://github.com/jh5168-design/vtuber-ai-director-releases).

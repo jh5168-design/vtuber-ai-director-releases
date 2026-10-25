@@ -1,0 +1,46 @@
+---
+title: Bilibili Open Live
+description: Bring real Bilibili chat into the director through the official Open Live API. No cookies, room URLs, or scraping.
+---
+
+The integration uses the official Open Live API and the WebSocket transport returned by `/v2/app/start`. It never uses cookies, room URLs, or public-room scraping.
+
+## Set it up
+
+<Steps>
+<Step>
+
+### Add developer credentials once
+
+After registering and creating an Open Live project, open **Settings** and enter the **App ID**, **Access Key ID**, and **Access Key Secret**. The backend stores them locally and never returns secret values to the interface.
+
+</Step>
+<Step>
+
+### Enter your identity code for each stream
+
+In **Live Stream**, paste your **Streamer identity code**. You can find it at the bottom right of play-live.bilibili.com or in Livehime's interactive features. The code determines your room, so no room ID is needed.
+
+</Step>
+<Step>
+
+### Test the connection
+
+Select **Test connection** before you start Full Auto.
+
+</Step>
+</Steps>
+
+<Callout type="warn" title="Unpublished projects only reach your own room">
+  Until your Open Live project is approved, it can connect only to the developer's own room.
+</Callout>
+
+## Supported events
+
+| Event                                      | Handling                         |
+| ------------------------------------------ | -------------------------------- |
+| Danmaku, Super Chat, paid gifts, guard     | Sent to the audience selector    |
+| Free-gift bursts, likes, room entries      | Not mapped                       |
+| Live start and end                         | Not mapped                       |
+
+The audience selector decides which of these messages are worth a response. Chat shapes what the director picks; it never overrides you.

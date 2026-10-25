@@ -20,6 +20,25 @@ Review the release notes and SHA-256 checksums before installing.
 
 ## Documentation
 
+The current Next.js/Fumadocs website source is maintained at this repository's root:
+`app/`, `components/`, `content/docs/`, `lib/`, and `public/`.
+The existing root HTML files and `assets/` are retained as the legacy published site.
+
+```sh
+npm ci
+npm run dev
+```
+
+Open http://localhost:4300. Run `npm run build` to export the current site to `out/`,
+then `npm run start` to preview it at http://localhost:4301.
+Release download metadata is defined in `lib/release.ts`.
+
+The private application repository includes this repository as its `docs` submodule.
+Clone that repository with `git clone --recurse-submodules`, or initialize an
+existing checkout with `git submodule update --init --recursive`.
+Commit and push documentation changes here before updating the application's
+submodule pointer.
+
 - [Product overview](index.html)
 - [Downloads](download.html)
 - [First-run onboarding](onboarding.html)

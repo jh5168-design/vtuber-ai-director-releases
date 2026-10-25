@@ -1,0 +1,93 @@
+---
+title: Quick start
+description: Everything between downloading the app and your first live stream, in order. Each step links to its full guide.
+---
+
+Plan on about 20 minutes, plus download time for your models. Each step ends with a check, so you know it worked before you move on.
+
+<Steps>
+<Step>
+
+### Install the app
+
+Download the macOS build, open it once, and allow the microphone. [Installation](/docs/installation)
+
+**Done when** the app opens to its main screen.
+
+</Step>
+<Step>
+
+### Connect a model
+
+Start LM Studio or Ollama on your computer, or pick a cloud provider. Then fill in **Settings → AI model service** and select **Test connection** and **Save**. [Model service](/docs/model-service)
+
+**Done when** the test reports **Connected: model replied “…”**.
+
+</Step>
+<Step>
+
+### Set up speech recognition
+
+Choose a Whisper model in **Settings → Local speech recognition**, then select **Preload recognition model** so it downloads now rather than on stream. [Speech recognition](/docs/speech-recognition)
+
+**Done when** the status line reads **Recognition model (small) ready**.
+
+</Step>
+<Step>
+
+### Test your microphone
+
+In **Live Rehearsal**, choose **Local Whisper (recommended, offline)** and your microphone, then run the five-second **Audio input test**. [Test your input](/docs/speech-recognition#4-run-the-audio-input-test)
+
+**Done when** the test says **Audio capture is working: clear speech detected.**
+
+</Step>
+<Step>
+
+### Create a character
+
+Use the sample character the app creates on first start, or write your own in **Character Studio**. [Character Studio](/docs/character-studio)
+
+**Done when** your profile is saved with a few example lines and clear boundaries.
+
+</Step>
+<Step>
+
+### Rehearse
+
+Set **Simulated audience activity** to **Low activity** and select **Start rehearsal**. Read a few lines, then improvise once. [Live Rehearsal](/docs/live-rehearsal)
+
+**Done when** the highlight follows your voice and the director rewrites only the lines ahead of you.
+
+</Step>
+<Step>
+
+### Go live
+
+Write session instructions in **Live Stream**, connect Bilibili if you use it, review the director policy, and select **Start Full Auto**. [Live Stream](/docs/live-stream) · [Bilibili Open Live](/docs/bilibili)
+
+</Step>
+</Steps>
+
+Prefer a guided version? The [setup guide](/onboarding) walks through steps 2 to 6 one screen at a time.
+
+## Run from source
+
+The source repository is private. With access, install Python 3.11 and Node.js 22.6 or newer, then set up from the repository root:
+
+```bash title="Repository root"
+cp .env.example .env
+make setup
+```
+
+Start the backend and the interface in two terminals:
+
+```bash title="Terminal 1"
+make backend
+```
+
+```bash title="Terminal 2"
+make frontend
+```
+
+Open `http://localhost:5173`. The app creates a sample character on first start. Source runs read model and Whisper defaults from `.env`; see [Speech recognition](/docs/speech-recognition#advanced-settings).

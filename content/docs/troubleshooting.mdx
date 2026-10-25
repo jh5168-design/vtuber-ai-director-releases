@@ -1,0 +1,58 @@
+---
+title: Troubleshooting
+description: Fixes for the problems people hit most often during setup and on stream.
+---
+
+## macOS blocks the first launch
+
+Preview builds are not signed or notarized. If macOS says the app **is damaged and can’t be opened**, select **Cancel** and run:
+
+```bash title="Terminal"
+xattr -dr com.apple.quarantine "/Applications/VTuber AI Director.app"
+```
+
+If it says Apple **could not verify** the app, open **System Settings → Privacy & Security** and select **Open Anyway**. Either way, do this only for a build from the [official releases](https://github.com/jh5168-design/vtuber-ai-director-releases/releases/latest). [Installation](/docs/installation#open-it-the-first-time) has the full steps.
+
+## The model connection fails
+
+1. Confirm the model service is running. LM Studio's server must be started in its **Developer** tab.
+2. Check that the **Service URL** is correct and that **Model** matches what the service exposes. **Fetch models** lists the valid names.
+3. Local services usually need no API key, so leave it blank for them.
+4. For slow local models, raise **Request timeout (seconds)**.
+
+Each error message has its own fix in [Model service](/docs/model-service#if-the-test-fails).
+
+## The Whisper model will not download
+
+The first use downloads the model from Hugging Face. If the status line never reaches **ready**, or reports that the recognition model failed to load:
+
+- open the app with a mirror: `open --env HF_ENDPOINT=https://hf-mirror.com -a "VTuber AI Director"`;
+- or download the model files yourself and enter their folder's full path as **Recognition model**.
+
+Both are explained step by step in [Speech recognition](/docs/speech-recognition#if-hugging-face-is-slow-or-blocked).
+
+## No microphone is available
+
+1. Turn on access for VTuber AI Director in **System Settings → Privacy & Security → Microphone**.
+2. Close other software that may be holding the device.
+3. Select **Allow access and refresh microphones**, choose the right input, and run the **Audio input test** again.
+
+## The audio input test fails
+
+| The test says                                     | What to do                                                       |
+| ------------------------------------------------- | ---------------------------------------------------------------- |
+| Speech detected, but the volume is low.           | Move closer, or raise the input volume in your system settings.  |
+| The input is too loud and distorted.              | Move farther away, or lower the input gain.                      |
+| No audio captured.                                | Check the mute switch, the selected device, and microphone permission. |
+| Only background sound detected.                   | Say a sentence while it records.                                 |
+| No transcript returned.                           | Speak more clearly and move closer to the microphone.            |
+
+## Recognition falls behind
+
+If the app warns that an older audio segment was skipped, your computer cannot transcribe as fast as you speak. Choose a smaller **Recognition model** in **Settings → Local speech recognition**, such as `base` instead of `small`.
+
+## Bilibili does not connect
+
+1. Check the developer credentials in **Settings**.
+2. Copy your **Streamer identity code** again and retry.
+3. If your Open Live project is unpublished, it can connect only to the developer's own room.

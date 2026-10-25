@@ -1,0 +1,94 @@
+---
+title: Installation
+description: Download the macOS app, open it for the first time, and know where it keeps your data.
+---
+
+The desktop app runs on Macs with Apple silicon. The Windows installer is not published yet; see the [download page](/download) for its status.
+
+<Steps>
+<Step>
+
+### Download
+
+Open the [download page](/download) and select **Download .dmg**. The file is about 178 MB and lands in your **Downloads** folder as `VTuber-AI-Director-macOS-arm64.dmg`.
+
+</Step>
+<Step>
+
+### Verify the download (optional)
+
+Download `SHA256SUMS.txt` from the same release into **Downloads**, then run:
+
+```bash title="Terminal"
+cd ~/Downloads && shasum -a 256 -c SHA256SUMS.txt --ignore-missing
+```
+
+`VTuber-AI-Director-macOS-arm64.dmg: OK` means the file matches the published build.
+
+</Step>
+<Step>
+
+### Install
+
+Open the DMG and drag **VTuber AI Director** into **Applications**. Always launch it from **Applications**, not from the DMG window.
+
+</Step>
+<Step>
+
+### Open it the first time
+
+Preview builds are not signed or notarized, so macOS stops the first launch. Which message you see depends on your macOS version.
+
+<Tabs items={['“…is damaged”', '“Apple could not verify…”']}>
+<Tab value="“…is damaged”">
+
+macOS says **“VTuber AI Director” is damaged and can’t be opened**. The app is not damaged; macOS refuses unsigned apps downloaded from the internet.
+
+1. Select **Cancel**. Do not move it to the Trash.
+2. Remove the download quarantine flag:
+
+   ```bash title="Terminal"
+   xattr -dr com.apple.quarantine "/Applications/VTuber AI Director.app"
+   ```
+
+3. Open the app from **Applications** again.
+
+</Tab>
+<Tab value="“Apple could not verify…”">
+
+1. Select **Done** in the message.
+2. Open **System Settings → Privacy & Security** and scroll down to the message about VTuber AI Director.
+3. Select **Open Anyway** and confirm with your password or Touch ID.
+
+</Tab>
+</Tabs>
+
+You only need to do this once per installed version. Do it only for builds from the [official releases](https://github.com/jh5168-design/vtuber-ai-director-releases/releases/latest); the checksum step above confirms that.
+
+</Step>
+<Step>
+
+### Allow the microphone
+
+The first time you test speech, macOS asks whether VTuber AI Director may use the microphone. Select **Allow**. If you declined, turn it on later in **System Settings → Privacy & Security → Microphone**.
+
+</Step>
+</Steps>
+
+## Where your data lives
+
+Everything the app creates stays in one folder:
+
+```txt title="~/Library/Application Support/vtuber-ai-director-desktop"
+director.db   characters, memories, sessions, and settings (including saved keys)
+models/       Whisper speech models downloaded on first use
+```
+
+To open it, choose **Go → Go to Folder** in Finder and paste `~/Library/Application Support/vtuber-ai-director-desktop`.
+
+## Update or uninstall
+
+- **Update.** Automatic updates are not implemented. Download the new DMG and replace the app in **Applications**. Your data folder is kept.
+- **Uninstall.** Quit the app and move it from **Applications** to the Trash. To remove your characters, memories, keys, and downloaded models as well, delete the data folder above.
+
+Next: [connect a model](/docs/model-service).

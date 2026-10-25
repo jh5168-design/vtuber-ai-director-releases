@@ -1,0 +1,29 @@
+---
+title: Privacy & data
+description: What stays on your computer, what can leave it, and how the local backend is protected.
+---
+
+## The local backend
+
+The backend binds only to `127.0.0.1`. Each desktop launch creates a random token, held in an HttpOnly, SameSite cookie inside an in-memory Electron session. Every HTTP route and WebSocket connection is authenticated with it.
+
+## Where your data lives
+
+Everything is stored in `~/Library/Application Support/vtuber-ai-director-desktop` on your Mac:
+
+- **Database.** `director.db` holds characters, memories, sessions, and settings, including saved keys.
+- **Speech models.** Whisper models download into `models/` on first use.
+- **Microphone audio.** With Local Whisper, audio is transcribed on your computer, kept in memory, and never written to disk. It is not sent to a browser vendor or the public network.
+
+## What can leave your computer
+
+Only the connections you choose:
+
+- **A cloud model service.** If you connect one instead of a local server, it receives the generation context, including transcripts of what you say on stream.
+- **The Whisper model download.** The first use fetches the model from Hugging Face, or from the mirror you set.
+- **Bilibili Open Live.** Traffic to Bilibili, when you connect a room.
+- **Browser speech recognition.** Microphone audio goes to your browser vendor, if you choose that engine.
+
+<Callout type="warn" title="Secrets are not in the OS credential store yet">
+  Model API keys and Bilibili credentials are stored in the local SQLite settings table. Migration to the operating system's credential store is not implemented, so protect the data folder and any backups of it.
+</Callout>

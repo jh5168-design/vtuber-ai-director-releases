@@ -1,0 +1,104 @@
+---
+title: Model service
+description: Connect the language model that writes the director's lines. Run one locally with LM Studio or Ollama, or use a cloud provider.
+---
+
+Director generation, instruction interpretation, opening topics, and simulated rehearsal viewers all share one OpenAI-compatible connection. You set it up once in **Settings → AI model service**.
+
+<Callout title="Which option should I pick?">
+  A local server keeps everything on your computer and needs no account. Pick a model that fits in memory alongside Whisper and your streaming software; bigger models write better lines but answer more slowly. A cloud provider is faster to set up and needs no local memory, but it receives your stream context.
+</Callout>
+
+## Set up LM Studio
+
+<Steps>
+<Step>
+
+### Install LM Studio and download a model
+
+Install LM Studio from [lmstudio.ai](https://lmstudio.ai), then use its model search to download an instruction-tuned chat model.
+
+</Step>
+<Step>
+
+### Start the local server
+
+Open the **Developer** tab, load the model, and start the server. It listens on port **1234** by default. Keep LM Studio running whenever you rehearse or stream.
+
+</Step>
+<Step>
+
+### Point the app at it
+
+In VTuber AI Director, open **Settings → AI model service** and fill in:
+
+| Setting         | Value                                                        |
+| --------------- | ------------------------------------------------------------ |
+| Connection type | **OpenAI-compatible API**                                    |
+| Service URL     | **LM Studio (local)**, which fills in `http://localhost:1234/v1` |
+| API key         | Leave blank                                                  |
+| Model           | Select **Fetch models**, then pick the model you loaded      |
+
+The **Model** field starts with an example name. Replace it with a model that your server actually has.
+
+</Step>
+<Step>
+
+### Test and save
+
+Select **Test connection**. A working setup reports **Connected: model replied “…” in N seconds** and a **Structured output** mode. Then select **Save**; testing alone does not store anything.
+
+</Step>
+</Steps>
+
+## Set up Ollama
+
+1. Install Ollama from [ollama.com](https://ollama.com) and keep it running.
+2. Download a chat model in Terminal with `ollama pull <model>`.
+3. In **Settings → AI model service**, choose **Ollama (local)** as the Service URL (`http://localhost:11434/v1`), leave the API key blank, select **Fetch models**, and pick the model you pulled.
+4. Select **Test connection**, then **Save**.
+
+## Use a cloud provider
+
+Choose a preset as the Service URL, paste your provider's API key, select **Fetch models**, and pick a model. Then **Test connection** and **Save**.
+
+| Preset                     | Service URL                                         |
+| -------------------------- | --------------------------------------------------- |
+| OpenAI                     | `https://api.openai.com/v1`                         |
+| DeepSeek                   | `https://api.deepseek.com/v1`                       |
+| Alibaba Cloud Model Studio | `https://dashscope.aliyuncs.com/compatible-mode/v1` |
+| Moonshot Kimi              | `https://api.moonshot.cn/v1`                        |
+| Zhipu GLM                  | `https://open.bigmodel.cn/api/paas/v4`              |
+| SiliconFlow                | `https://api.siliconflow.cn/v1`                     |
+| OpenRouter                 | `https://openrouter.ai/api/v1`                      |
+
+Any other OpenAI-compatible service works too: type its base URL into the Service URL field. Saved keys stay in the local backend and are never shown again; use **Clear saved key** to remove one.
+
+<Callout type="warn" title="What a cloud provider receives">
+  With an external service, the generation context, including transcripts of what you say on stream, is sent to that provider.
+</Callout>
+
+## Other settings
+
+- **Request timeout (seconds).** Defaults to 120. Raise it for slow local models; a 27B model can take tens of seconds per segment.
+- **Creativity.** Higher values give looser, more varied lines.
+- **Maximum output tokens.** Raise it if a test reports that output reached the token limit.
+
+The connection negotiates structured output in this order and remembers the result for each service URL and model: **JSON Schema**, then **JSON mode**, then **Prompt-based** output when the service supports neither.
+
+## If the test fails
+
+| The app says                                         | Fix                                                                    |
+| ---------------------------------------------------- | ---------------------------------------------------------------------- |
+| The model service rejected the API key               | Check the key. Local services usually need none.                       |
+| Model or endpoint not found                          | Use **Fetch models** to get the exact name, and check the Service URL. |
+| Output reached the token limit before completion     | Raise **Maximum output tokens**.                                       |
+| The model did not return structured output           | Retry, or switch to another model.                                     |
+| The service response is not OpenAI-compatible        | Check that the Service URL points to the API, usually ending in `/v1`. |
+| The model service is temporarily unavailable         | Make sure the server is running, then try again later.                 |
+
+<Callout type="idea" title="No model yet?">
+  Choose **Mock model (offline, deterministic)** as the connection type to explore the interface without any model service.
+</Callout>
+
+Next: [set up speech recognition](/docs/speech-recognition).

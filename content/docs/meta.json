@@ -1,0 +1,24 @@
+{
+  "title": "Documentation",
+  "pages": [
+    "---Get started---",
+    "index",
+    "quick-start",
+    "requirements",
+    "installation",
+    "---Configuration---",
+    "model-service",
+    "speech-recognition",
+    "bilibili",
+    "---Workflows---",
+    "character-studio",
+    "live-rehearsal",
+    "live-stream",
+    "memory-studio",
+    "---Reference---",
+    "architecture",
+    "privacy",
+    "troubleshooting",
+    "limitations"
+  ]
+}

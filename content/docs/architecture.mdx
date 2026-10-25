@@ -1,0 +1,23 @@
+---
+title: Architecture
+description: How the desktop app runs a private local backend and what the interface is allowed to do.
+---
+
+The Electron shell launches a private FastAPI process on an automatically selected loopback port. It waits for an authenticated health check, then serves the production React interface from that process.
+
+```txt title="Process layout"
+Electron main process
+  └─ private loopback token
+     ├─ React interface
+     ├─ FastAPI HTTP + WebSocket
+     ├─ SQLite persistence
+     └─ local model, or an external OpenAI-compatible API
+```
+
+## Interface hardening
+
+- Renderer sandboxing and context isolation are enabled.
+- Node integration, arbitrary navigation, and pop-ups are disabled.
+- The only media permission the app grants is the microphone, and only for its own requests. The operating system still asks you first.
+
+For how data and credentials are stored, see [Privacy & data](/docs/privacy).
